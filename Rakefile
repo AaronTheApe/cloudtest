@@ -17,11 +17,12 @@ Jeweler::Tasks.new do |gem|
   gem.name = "cloudtest"
   gem.homepage = "http://github.com/AaronTheApe/cloudtest"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = "Runs Ruby 1.9.X tests on the cloud"
+  gem.description = "Runs Ruby 1.9.X tests on the cloud"
   gem.email = "aaron.broad@me.com"
   gem.authors = ["Aaron Broad"]
   # dependencies defined in Gemfile
+  gem.files = Dir.glob('lib/**/*.rb')
 end
 Jeweler::RubygemsDotOrgTasks.new
 
@@ -32,12 +33,13 @@ Rake::TestTask.new(:test) do |test|
   test.verbose = true
 end
 
-require 'rcov/rcovtask'
-Rcov::RcovTask.new do |test|
+Rake::TestTask.new(:coverage) do |test|
+  require 'simplecov'
+  SimpleCov.command_name 'rake test'
+  SimpleCov.start
   test.libs << 'test'
   test.pattern = 'test/**/test_*.rb'
   test.verbose = true
-  test.rcov_opts << '--exclude "gems/*"'
 end
 
 task :default => :test
