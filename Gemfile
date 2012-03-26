@@ -11,4 +11,5 @@ group :development do
   gem "jeweler"
   gem "simplecov"
   gem "shoulda"
+  gem "fog"
 end

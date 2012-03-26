@@ -1,3 +1,6 @@
+# cloudtest cloud credentials should not be persisted to the interwebs:)
+cloud_cred.rb 
+
 # rcov generated
 coverage
 coverage.data
