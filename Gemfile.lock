@@ -31,15 +31,11 @@ GEM
     rdoc (3.12)
       json (~> 1.4)
     ruby-hmac (0.4.0)
-    shoulda (3.0.1)
-      shoulda-context (~> 1.0.0)
-      shoulda-matchers (~> 1.0.0)
-    shoulda-context (1.0.0)
-    shoulda-matchers (1.0.0)
     simplecov (0.6.1)
       multi_json (~> 1.0)
       simplecov-html (~> 0.5.3)
     simplecov-html (0.5.3)
+    trollop (1.16.2)
 
 PLATFORMS
   ruby
@@ -49,5 +45,5 @@ DEPENDENCIES
   fog
   jeweler
   rdoc
-  shoulda
   simplecov
+  trollop

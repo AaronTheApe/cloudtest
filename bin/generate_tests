@@ -1,0 +1,58 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift File.join(File.dirname(__FILE__), '..', 'lib')
+
+require 'cloudtest'
+require 'trollop'
+
+opts = Trollop::options do
+  banner <<-EOS
+generate_tests generates distributable Test::Unit tests matching the options you specify
+
+Usage:
+      generate_tests [options]
+EOS
+
+  opt :path, 
+  "the existing system path in which to place the newly created tests",
+  :type => String
+  
+  opt :num_suites, 
+  "the number of Test::Unit test suites to create",
+  :default => 1
+  
+  opt :test_cases_per_suite, 
+  "the number of Test::Unit::TestCases per test suite to create",
+  :default => 1
+  
+  opt :tests_per_test_case, 
+  "the number of test_ methods per Test::Unit::TestCase to create",
+  :default => 1
+  
+  opt :selenium, 
+  "whether tests should attempt to use Selenium to reach their expected result",
+  :default => false
+  
+  opt :pass_fail_ratio,
+  "percentage of tests that should pass all things being equal",
+  :default => 0.8
+end
+
+path = opts[:path]
+Trollop::die :path, "must be specified" unless path
+Trollop::die :path, "must specify an existing directory" unless File::exists?(path) && File::directory?(path)
+
+num_suites = opts[:num_suites]
+Trollop::die :num_suites, "must be non-negative" unless num_suites >= 0
+
+test_cases_per_suite = opts[:test_cases_per_suite]
+Trollop::die :test_cases_per_suite, "must be non-negative" unless test_cases_per_suite >= 0
+
+tests_per_test_case = opts[:tests_per_test_case]
+Trollop::die :tests_per_test_case, "must be non-negative" unless tests_per_test_case >= 0
+
+pass_fail_ratio = opts[:pass_fail_ratio]
+Trollop::die :pass_fail_ratio, "must be between 0.0 and 1.0" unless pass_fail_ratio >= 0.0 && pass_fail_ratio <= 1.0
+
+selenium = opts[:selenium]
+
+Cloudtest::gen_suites(path, num_suites, test_cases_per_suite, tests_per_test_case, pass_fail_ratio, selenium)

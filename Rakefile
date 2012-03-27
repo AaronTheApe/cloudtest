@@ -23,6 +23,7 @@ Jeweler::Tasks.new do |gem|
   gem.authors = ["Aaron Broad"]
   # dependencies defined in Gemfile
   gem.files = Dir.glob('lib/**/*.rb')
+  gem.executables = ["generate_tests"]
 end
 Jeweler::RubygemsDotOrgTasks.new
 
